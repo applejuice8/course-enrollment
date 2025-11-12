@@ -1,8 +1,8 @@
 from pydantic import BaseModel
 from datetime import datetime
 
+# Don't allow users to set or change date
 class EnrollmentCreate(BaseModel):
-    date: datetime
     student_id: int
     course_id: int
 
@@ -16,6 +16,5 @@ class EnrollmentRead(BaseModel):
         orm_mode = True
 
 class EnrollmentUpdate(BaseModel):
-    date: datetime | None = None
     student_id: int | None = None
     course_id: int | None = None
