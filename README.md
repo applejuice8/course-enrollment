@@ -1,7 +1,5 @@
 # Course Enrollment
 
-# Course Enrollment Project
-
 ## Project Structure
 
 ```
