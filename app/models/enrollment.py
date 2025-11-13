@@ -14,7 +14,7 @@ class Enrollment(Base):
     course: Mapped[int] = relationship('Course', back_populates='enrollments')
 
     __table_args__ = (
-        PrimaryKeyConstraint('student_id', 'course_id', name='pk_enrollment')     # Composite key
+        PrimaryKeyConstraint('student_id', 'course_id', name='pk_enrollment'),     # Composite key
     )
 
     def __repr__(self):
