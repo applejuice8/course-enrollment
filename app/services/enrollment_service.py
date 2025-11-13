@@ -15,9 +15,14 @@ def create_enrollment(db: Session, enrollment: EnrollmentCreate):
 
 def get_enrollment(db: Session, student_id: int = None, course_id: int = None):
     if student_id and course_id:
-        return db.query(Enrollment).filter_by(student_id=student_id, course_id=course_id).first()
+        db_enrollment = db.query(Enrollment).filter_by(student_id=student_id, course_id=course_id).first()
     elif student_id:
-        return db.query(Enrollment).filter_by(student_id=student_id).all()
+        db_enrollment = db.query(Enrollment).filter_by(student_id=student_id).all()
     elif course_id:
-        return db.query(Enrollment).filter_by(course_id=course_id).all()
-    return db.query(Enrollment).all()
+        db_enrollment = db.query(Enrollment).filter_by(course_id=course_id).all()
+    else:
+        db_enrollment = db.query(Enrollment).all()
+
+    if not db_enrollment:
+        raise HTTPException(status_code=404, detail='Enrollment not found')
+    return db_enrollment

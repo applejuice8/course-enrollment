@@ -16,13 +16,16 @@ def create_course(db: Session, course: CourseCreate):
 
 def get_course(db: Session, course_id: int = None):
     if course_id:
-        return db.query(Course).filter_by(id=course_id).first()
+        db_course = db.query(Course).filter_by(id=course_id).first()
+        if not db_course:
+            raise HTTPException(status_code=404, detail='Course not found')
+        return db_course
     return db.query(Course).all()
 
 def update_course(db: Session, course_id: int, course: CourseUpdate):
     db_course = db.query(Course).filter_by(id=course_id).first()
     if not db_course:
-        raise HTTPException(status_code=404)
+        raise HTTPException(status_code=404, detail='Course not found')
 
     if course.code is not None:
         db_course.code = course.code

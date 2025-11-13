@@ -17,13 +17,16 @@ def create_student(db: Session, student: StudentCreate):
 
 def get_student(db: Session, student_id: int = None):
     if student_id:
-        return db.query(Student).filter_by(id=student_id).first()
+        db_student = db.query(Student).filter_by(id=student_id).first()
+        if not db_student:
+            raise HTTPException(status_code=404, detail='Student not found')
+        return db_student
     return db.query(Student).all()
 
 def update_student(db: Session, student_id: int, student: StudentUpdate):
     db_student = db.query(Student).filter_by(id=student_id).first()
     if not db_student:
-        raise HTTPException(status_code=404)
+        raise HTTPException(status_code=404, detail='Student not found')
 
     if student.name is not None:
         db_student.name = student.name
