@@ -36,6 +36,7 @@ course-enrollment/
 │   └── test_student.py
 ├── .env
 ├── .gitignore
+├── fast_commit.bash
 ├── README.md
 └── requirements.txt
 ```
@@ -48,6 +49,9 @@ course-enrollment/
 ## Architecture Flow
 
 ```
+Client Request
+        │
+        ▼
 Routers (FastAPI endpoints)
         │
         ▼
@@ -57,7 +61,7 @@ Services (CRUD & business logic)
 Models (SQLAlchemy ORM)
         │
         ▼
-Database (SQLite or other)
+Database (SQLite or other databases)
 ```
 
 * Clients sends requests to the API endpoints defined in **routers**.
