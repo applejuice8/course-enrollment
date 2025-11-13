@@ -1,6 +1,8 @@
 #!/bin/bash
 
-if [ -z "$1" ]; then
+msg="$*"
+
+if [ -z "$msg" ]; then
     echo "Usage: ./fast_commit.bash 'commit message'"
     exit 1
 fi
@@ -10,8 +12,8 @@ echo "Executing 'git add .'"
 git add .
 
 echo
-echo "Executing 'git commit -m \"$1\"'"
-git commit -m "$1"
+echo "Executing 'git commit -m \"$msg\"'"
+git commit -m "$msg"
 
 echo
 echo "Executing 'git push'"
