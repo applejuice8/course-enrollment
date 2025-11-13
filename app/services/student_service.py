@@ -1,5 +1,6 @@
 from http.client import HTTPException
 from sqlalchemy.orm import Session
+from app.core.security import hash_pw, verify_pw
 from app.models.student import Student
 from app.schemas.student import StudentCreate, StudentUpdate
 
@@ -7,7 +8,7 @@ def create_student(db: Session, student: StudentCreate):
     db_student = Student(
         name=student.name,
         age=student.age,
-        password=student.password
+        password=hash_pw(student.password)
     )
     db.add(db_student)
     db.commit()
@@ -29,7 +30,7 @@ def update_student(db: Session, student_id: int, student: StudentUpdate):
     if student.age is not None:
         db_student.age = student.age
     if student.password is not None:
-        db_student.password = student.password
+        db_student.password = hash_pw(student.password)
 
     db.commit()
     db.refresh(db_student)
