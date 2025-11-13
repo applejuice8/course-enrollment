@@ -12,8 +12,8 @@ def create_course(course: CourseCreate, db: Session = Depends(get_db)):
     return course_service.create_course(db, course)
 
 # Read
-@router.get('/', response_model=CourseGet)
-def get_course(db: Session = Depends(get_db)):
+@router.get('/', response_model=list[CourseGet])
+def get_courses(db: Session = Depends(get_db)):
     return course_service.get_course(db)
 
 @router.get('/{course_id}', response_model=CourseGet)
