@@ -13,7 +13,11 @@ def create_enrollment(db: Session, enrollment: EnrollmentCreate):
     db.refresh(db_enrollment)
     return db_enrollment
 
-def get_enrollment(db: Session, enrollment_id: int = None):
-    if enrollment_id:
-        return db.query(Enrollment).filter_by(id=enrollment_id).first()
+def get_enrollment(db: Session, student_id: int = None, course_id: int = None):
+    if student_id and course_id:
+        return db.query(Enrollment).filter_by(student_id=student_id, course_id=course_id).first()
+    elif student_id:
+        return db.query(Enrollment).filter_by(student_id=student_id).all()
+    elif course_id:
+        return db.query(Enrollment).filter_by(course_id=course_id).all()
     return db.query(Enrollment).all()

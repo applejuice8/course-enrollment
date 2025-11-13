@@ -7,14 +7,9 @@ class EnrollmentCreate(BaseModel):
     course_id: int
 
 class EnrollmentRead(BaseModel):
-    id: int
-    date: datetime
     student_id: int
     course_id: int
+    date: datetime
 
     class Config:
         orm_mode = True
-
-class EnrollmentUpdate(BaseModel):
-    student_id: int | None = None
-    course_id: int | None = None
