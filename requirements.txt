@@ -3,4 +3,4 @@ sqlalchemy
 passlib
 pydantic
 fastapi[standard]
-bcrypt
+argon2-cffi
