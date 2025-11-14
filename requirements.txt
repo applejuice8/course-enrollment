@@ -4,3 +4,4 @@ passlib
 pydantic
 fastapi[standard]
 argon2-cffi
+pytest
