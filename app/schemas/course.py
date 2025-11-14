@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 class CourseCreate(BaseModel):
     code: str
@@ -11,8 +11,7 @@ class CourseGet(BaseModel):
     name: str
     credit_hours: int
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 class CourseUpdate(BaseModel):
     code: str | None = None

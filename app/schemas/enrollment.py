@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 
 # Don't allow users to set or change date
@@ -11,5 +11,4 @@ class EnrollmentGet(BaseModel):
     course_id: int
     date: datetime
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

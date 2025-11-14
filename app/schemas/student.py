@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 class StudentCreate(BaseModel):
     name: str
@@ -10,8 +10,7 @@ class StudentGet(BaseModel):
     name: str
     age: int
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 class StudentUpdate(BaseModel):
     name: str | None = None
