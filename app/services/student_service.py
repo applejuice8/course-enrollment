@@ -1,6 +1,6 @@
 from http.client import HTTPException
 from sqlalchemy.orm import Session
-from app.core.security import hash_pw
+from app.core.security import hash_pw, verify_pw
 from app.models.student import Student
 from app.schemas.student import StudentCreate, StudentUpdate
 
@@ -32,8 +32,12 @@ def update_student(db: Session, student_id: int, student: StudentUpdate):
         db_student.name = student.name
     if student.age is not None:
         db_student.age = student.age
-    if student.password is not None:
-        db_student.password = hash_pw(student.password)
+    if student.new_pw is not None:
+        if not student.old_pw:
+            raise HTTPException(status_code=400, detail='Old password required')
+        if not verify_pw(student.old_pw, db_student.password):
+            raise HTTPException(status_code=400, detail='Incorrect old password')
+        db_student.password = hash_pw(student.new_pw)
 
     db.commit()
     db.refresh(db_student)
