@@ -1,20 +1,26 @@
 #!/bin/bash
 
+green=$(tput setaf 2)   # Green
+red=$(tput setaf 1)     # Red
+reset=$(tput sgr0)
+
+echo "${green}Executing 'git commit -m \"$msg\"'${reset}"
+
 msg="$*"
 
 if [ -z "$msg" ]; then
-    echo "Usage: ./fast_commit.bash 'commit message'"
+    echo "${red}Usage: ./fast_commit.bash 'commit message'${reset}"
     exit 1
 fi
 
 echo
-echo "Executing 'git add .'"
+echo "${green}Executing 'git add .'${reset}"
 git add .
 
 echo
-echo "Executing 'git commit -m \"$msg\"'"
+echo "${green}Executing 'git commit -m \"$msg\"'${reset}"
 git commit -m "$msg"
 
 echo
-echo "Executing 'git push'"
+echo "${green}Executing 'git push'${reset}"
 git push
